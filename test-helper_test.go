@@ -50,8 +50,8 @@ func TestHelperByte(t *testing.T) {
 }
 
 func TestHelperDataType(t *testing.T) {
-	actualValues := [][]Data{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
-	expectedValues := [][]Data{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
+	actualValues := [][]interface{}{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
+	expectedValues := [][]interface{}{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(DataArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
@@ -61,7 +61,7 @@ func TestHelperDataType(t *testing.T) {
 }
 
 func TestHelperDifferentLengthArray(t *testing.T) {
-	arraysOne, arraysTwo := [][]Data{{-1, 3}, {1, 5, 7, 8}}, [][]Data{{-1, 3, 4, 6}, {1}}
+	arraysOne, arraysTwo := [][]interface{}{{-1, 3}, {1, 5, 7, 8}}, [][]interface{}{{-1, 3, 4, 6}, {1}}
 
 	for i, aOne := range arraysOne {
 		if err := CheckArraySameValues(DataArrays{Expected: arraysTwo[i], Actual: aOne}); err == nil {
@@ -71,7 +71,7 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 }
 
 func TestHelperDifferentElementsDataArray(t *testing.T) {
-	actualValues, expectedValues := [][]Data{{-1, 3}, {1, 5, 7, 8}}, [][]Data{{-1, 33}, {1, 5, 3, 8}}
+	actualValues, expectedValues := [][]interface{}{{-1, 3}, {1, 5, 7, 8}}, [][]interface{}{{-1, 33}, {1, 5, 3, 8}}
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(DataArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {

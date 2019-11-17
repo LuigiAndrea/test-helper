@@ -116,13 +116,10 @@ func (b ByteArrays) GetError(i int) error {
 	return fmt.Errorf("\nExpected '%b' - Actual '%b'", b.Expected[i], b.Actual[i])
 }
 
-//Data is used as generic type
-type Data interface{}
-
 //DataArrays attaches the methods of CheckArrays to struct DataArrays
 type DataArrays struct {
-	Expected []Data
-	Actual   []Data
+	Expected []interface{}
+	Actual   []interface{}
 }
 
 // SameLength checks if the two arrays have the same length
