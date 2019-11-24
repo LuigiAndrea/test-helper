@@ -1,6 +1,7 @@
 package gotesthelper
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"runtime"
@@ -16,7 +17,7 @@ func GetFuncName(f interface{}) string {
 //CheckArraySameValues Check if two arrays have the same values and in the same order
 func CheckArraySameValues(arrays CheckArrays) error {
 	if !arrays.SameLength() {
-		return fmt.Errorf("\nDifferent number of elements between the two arrays")
+		return &LengthError{Err: errors.New("Array with different length")}
 	}
 
 	for i := 0; i < arrays.Size(); i++ {
@@ -34,6 +35,15 @@ type CheckArrays interface {
 	AreEqual(i int) bool
 	Size() int
 	GetError(i int) error
+}
+
+//LengthError records an error when two slice/array have different length
+type LengthError struct {
+	Err error
+}
+
+func (e *LengthError) Error() string {
+	return e.Err.Error()
 }
 
 // StringArrays attaches the methods of CheckArrays to struct StringArray

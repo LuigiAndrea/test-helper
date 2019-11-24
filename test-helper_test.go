@@ -11,7 +11,8 @@ func TestHelperString(t *testing.T) {
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(StringArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Errorf(err.Error())
+			t.Error(err.Error())
+			break
 		}
 	}
 }
@@ -22,7 +23,8 @@ func TestHelperInt(t *testing.T) {
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(IntArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Errorf(err.Error())
+			t.Error(err.Error())
+			break
 		}
 	}
 }
@@ -33,7 +35,8 @@ func TestHelperFloat64(t *testing.T) {
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(Float64Arrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Errorf(err.Error())
+			t.Error(err.Error())
+			break
 		}
 	}
 }
@@ -44,7 +47,8 @@ func TestHelperByte(t *testing.T) {
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(ByteArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Errorf(err.Error())
+			t.Error(err.Error())
+			break
 		}
 	}
 }
@@ -55,27 +59,38 @@ func TestHelperDataType(t *testing.T) {
 
 	for i, actualValue := range actualValues {
 		if err := CheckArraySameValues(DataArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Errorf(err.Error())
+			t.Error(err.Error())
+			break
 		}
 	}
 }
 
 func TestHelperDifferentLengthArray(t *testing.T) {
-	arraysOne, arraysTwo := [][]interface{}{{-1, 3}, {1, 5, 7, 8}}, [][]interface{}{{-1, 3, 4, 6}, {1}}
+	arraysOne, arraysTwo := [][]interface{}{{-1, 3}, {"B", 5, 7, 8}}, [][]interface{}{{-1, 3, 4, 6}, {"B"}}
 
 	for i, aOne := range arraysOne {
-		if err := CheckArraySameValues(DataArrays{Expected: arraysTwo[i], Actual: aOne}); err == nil {
-			t.Errorf("Expected Exception! Array with different lengths")
+
+		err := CheckArraySameValues(DataArrays{Expected: arraysTwo[i], Actual: aOne})
+		if err == nil {
+			t.Error("Expected Exception! Array with different lengths")
+			break
+		}
+		_, isLengthError := err.(*LengthError)
+
+		if !isLengthError {
+			t.Error("Expected a LengthError")
+			break
 		}
 	}
 }
 
 func TestHelperDifferentElementsDataArray(t *testing.T) {
-	actualValues, expectedValues := [][]interface{}{{-1, 3}, {1, 5, 7, 8}}, [][]interface{}{{-1, 33}, {1, 5, 3, 8}}
+	actualValues, expectedValues := [][]interface{}{{-1, 33}, {1, 5, 7, "8"}}, [][]interface{}{{-1, "33"}, {1, 5, 3, 8}}
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(DataArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Errorf("Expected Exception! Array with different values")
+			t.Error("Expected Exception! Array with different values")
+			break
 		}
 	}
 }
@@ -85,7 +100,8 @@ func TestHelperDifferentElementsIntArray(t *testing.T) {
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(IntArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Errorf("Expected Exception! Array with different values")
+			t.Error("Expected Exception! Array with different values")
+			break
 		}
 	}
 }
@@ -95,7 +111,8 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(Float64Arrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Errorf("Expected Exception! Array with different values")
+			t.Error("Expected Exception! Array with different values")
+			break
 		}
 	}
 }
@@ -105,7 +122,8 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(StringArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Errorf("Expected Exception! Array with different values")
+			t.Error("Expected Exception! Array with different values")
+			break
 		}
 	}
 }
@@ -115,7 +133,8 @@ func TestHelperDifferentElementsByteArray(t *testing.T) {
 
 	for i, expectedValue := range expectedValues {
 		if err := CheckArraySameValues(ByteArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Errorf("Expected Exception! Array with different values")
+			t.Error("Expected Exception! Array with different values")
+			break
 		}
 	}
 }
