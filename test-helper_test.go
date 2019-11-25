@@ -5,62 +5,183 @@ import (
 	"testing"
 )
 
-func TestHelperString(t *testing.T) {
-	actualValues := [][]string{{"a", "b", "c", "d", "e"}, {"c"}, {""}, {}, {"d", "e", "a"}, {"T", "R", "E"}, {"CC", "AA", "BB"}}
-	expectedValues := [][]string{{"a", "b", "c", "d", "e"}, {"c"}, {""}, {}, {"d", "e", "a"}, {"T", "R", "E"}, {"CC", "AA", "BB"}}
+type testStringData struct {
+	input1, input2 []string
+}
 
-	for i, actualValue := range actualValues {
-		if err := CheckArraySameValues(StringArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Error(err.Error())
-			break
+type testIntData struct {
+	input1, input2 []int
+}
+
+type testFloatData struct {
+	input1, input2 []float64
+}
+
+type testByteData struct {
+	input1, input2 []byte
+}
+
+type testData struct {
+	input1, input2 []interface{}
+}
+
+func TestHelperStringArray(t *testing.T) {
+	tests := []testStringData{
+		testStringData{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
+		testStringData{input1: []string{"c"}, input2: []string{"c"}},
+		testStringData{input1: []string{""}, input2: []string{""}},
+		testStringData{input1: []string{}, input2: []string{}},
+		testStringData{input1: []string{"d", "e", "a"}, input2: []string{"d", "e", "a"}},
+		testStringData{input1: []string{"T", "R", "E"}, input2: []string{"T", "R", "E"}},
+		testStringData{input1: []string{"CC", "AA", "BB"}, input2: []string{"CC", "AA", "BB"}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperInt(t *testing.T) {
-	actualValues := [][]int{{1, 32, 44322, math.MaxInt64, math.MinInt64}, {133}, {0}, {}, {-3, 43, -0}}
-	expectedValues := [][]int{{1, 32, 44322, math.MaxInt64, math.MinInt64}, {133}, {0}, {}, {-3, 43, 0}}
+func TestHelperDifferentElementsStringArray(t *testing.T) {
+	tests := []testStringData{
+		testStringData{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
+		testStringData{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
+		testStringData{input1: []string{""}, input2: []string{}},
+	}
 
-	for i, actualValue := range actualValues {
-		if err := CheckArraySameValues(IntArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Error(err.Error())
-			break
+	for i, test := range tests {
+		if err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
 	}
 }
 
-func TestHelperFloat64(t *testing.T) {
-	actualValues := [][]float64{{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}, {133.0}, {0.0}, {}, {-3.0, 43.0, -0.0}, {2.5, 3.3}}
-	expectedValues := [][]float64{{1.0, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(200)}, {133.0}, {0.0}, {}, {-3.0, 43.0, 0.0}, {2.5, 3.3}}
+func TestHelperIntArray(t *testing.T) {
+	tests := []testIntData{
+		testIntData{input1: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}, input2: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}},
+		testIntData{input1: []int{133}, input2: []int{133}},
+		testIntData{input1: []int{0}, input2: []int{0}},
+		testIntData{input1: []int{}, input2: []int{}},
+		testIntData{input1: []int{-3, 43, -0}, input2: []int{-3, 43, -0}},
+	}
 
-	for i, actualValue := range actualValues {
-		if err := CheckArraySameValues(Float64Arrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Error(err.Error())
-			break
+	for i, test := range tests {
+		if err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperByte(t *testing.T) {
-	actualValues := [][]byte{{1, 32, 44, math.MaxInt8, 1}, {120}, {0}, {}, {3, 43, -0}, {2, 3}}
-	expectedValues := [][]byte{{1, 32, 44, math.MaxInt8, 1}, {120}, {0}, {}, {3, 43, 0}, {2, 3}}
+func TestHelperDifferentElementsIntArray(t *testing.T) {
+	tests := []testIntData{
+		testIntData{input1: []int{-1, 3}, input2: []int{-1, 33}},
+		testIntData{input1: []int{1, 5, 7, 8}, input2: []int{1, 5, 3, 8}},
+	}
 
-	for i, actualValue := range actualValues {
-		if err := CheckArraySameValues(ByteArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Error(err.Error())
-			break
+	for i, test := range tests {
+		if err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
 	}
 }
 
-func TestHelperDataType(t *testing.T) {
-	actualValues := [][]interface{}{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
-	expectedValues := [][]interface{}{{-1, 3}, {}, {true, false, false}, {"L", "UI", "GI"}}
+func TestHelperFloat64Array(t *testing.T) {
 
-	for i, actualValue := range actualValues {
-		if err := CheckArraySameValues(DataArrays{Expected: expectedValues[i], Actual: actualValue}); err != nil {
-			t.Error(err.Error())
+	tests := []testFloatData{
+		testFloatData{input1: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}, input2: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}},
+		testFloatData{input1: []float64{133}, input2: []float64{133}},
+		testFloatData{input1: []float64{0.0}, input2: []float64{0.0}},
+		testFloatData{input1: []float64{}, input2: []float64{}},
+		testFloatData{input1: []float64{-3.0, 43.0, -0.0}, input2: []float64{-3.0, 43.0, -0.0}},
+		testFloatData{input1: []float64{2.5, 3.3}, input2: []float64{2.5, 3.3}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("%d - %v", i+1, err.Error())
+		}
+	}
+}
+
+func TestHelperDifferentElementsFloatArray(t *testing.T) {
+
+	tests := []testFloatData{
+		testFloatData{input1: []float64{-1, 3}, input2: []float64{-1, 33}},
+		testFloatData{input1: []float64{1, 5, 7, 8}, input2: []float64{1, 5, 3, 8}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2}); err == nil {
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+	}
+}
+
+func TestHelperByteArray(t *testing.T) {
+
+	tests := []testByteData{
+		testByteData{input1: []byte{1, 32, 44, math.MaxInt8, 1}, input2: []byte{1, 32, 44, math.MaxInt8, 1}},
+		testByteData{input1: []byte{0}, input2: []byte{0}},
+		testByteData{input1: []byte{}, input2: []byte{}},
+		testByteData{input1: []byte{120}, input2: []byte{120}},
+		testByteData{input1: []byte{3, 43, 0}, input2: []byte{3, 43, 0}},
+		testByteData{input1: []byte{2, 3}, input2: []byte{2, 3}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("%d - %v", i+1, err.Error())
+		}
+	}
+}
+
+func TestHelperDifferentElementsByteArray(t *testing.T) {
+	tests := []testByteData{
+		testByteData{input1: []byte{1, 3}, input2: []byte{1, 33}},
+		testByteData{input1: []byte{1, 5, 7, 8}, input2: []byte{1, 5, 3, 8}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+	}
+}
+
+func TestHelperDataArray(t *testing.T) {
+
+	tests := []testData{
+		testData{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
+		testData{input1: []interface{}{true, false, "cat", 3}, input2: []interface{}{true, false, "cat", 3}},
+		testData{input1: []interface{}{"AB", "c", "dog"}, input2: []interface{}{"AB", "c", "dog"}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("%d - %v", i+1, err.Error())
+		}
+	}
+}
+
+func TestHelperDifferentElementsDataArray(t *testing.T) {
+	actualValues, expectedValues := [][]interface{}{{-1, 33}, {1, 5, 7, "8"}}, [][]interface{}{{-1, "33"}, {1, 5, 3, 8}}
+
+	for i, expectedValue := range expectedValues {
+		if err := CheckArraySameValues(DataArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
+			t.Error("Expected Exception! Array with different values")
 			break
+		}
+	}
+
+	tests := []testData{
+		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
+		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5", 3, true}},
+	}
+
+	for i, test := range tests {
+		if err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
 	}
 }
@@ -79,61 +200,6 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 
 		if !isLengthError {
 			t.Error("Expected a LengthError")
-			break
-		}
-	}
-}
-
-func TestHelperDifferentElementsDataArray(t *testing.T) {
-	actualValues, expectedValues := [][]interface{}{{-1, 33}, {1, 5, 7, "8"}}, [][]interface{}{{-1, "33"}, {1, 5, 3, 8}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(DataArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
-			break
-		}
-	}
-}
-
-func TestHelperDifferentElementsIntArray(t *testing.T) {
-	actualValues, expectedValues := [][]int{{-1, 3}, {1, 5, 7, 8}}, [][]int{{-1, 33}, {1, 5, 3, 8}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(IntArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
-			break
-		}
-	}
-}
-
-func TestHelperDifferentElementsFloatArray(t *testing.T) {
-	actualValues, expectedValues := [][]float64{{-1, 3}, {1, 5, 7, 8}}, [][]float64{{-1, 33}, {1, 5, 3, 8}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(Float64Arrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
-			break
-		}
-	}
-}
-
-func TestHelperDifferentElementsStringArray(t *testing.T) {
-	actualValues, expectedValues := [][]string{{"-1", "1"}, {"1", "5", "7", "8"}}, [][]string{{"-1", "13"}, {"1", "5", "3", "8"}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(StringArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
-			break
-		}
-	}
-}
-
-func TestHelperDifferentElementsByteArray(t *testing.T) {
-	actualValues, expectedValues := [][]byte{{1, 3}, {1, 5, 7, 8}}, [][]byte{{1, 33}, {1, 5, 3, 8}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(ByteArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
 			break
 		}
 	}

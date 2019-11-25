@@ -46,7 +46,7 @@ func (e *LengthError) Error() string {
 	return e.Err.Error()
 }
 
-// StringArrays attaches the methods of CheckArrays to struct StringArray
+// StringArrays attaches the methods of CheckArrays to struct StringArrays
 type StringArrays struct {
 	Expected []string
 	Actual   []string
