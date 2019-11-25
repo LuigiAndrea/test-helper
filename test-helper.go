@@ -63,7 +63,7 @@ func (s StringArrays) Size() int { return len(s.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (s StringArrays) GetError(i int) error {
-	return fmt.Errorf("\nExpected '%s' - Actual '%s'", s.Expected[i], s.Actual[i])
+	return fmt.Errorf("Expected '%s' - Actual '%s'", s.Expected[i], s.Actual[i])
 }
 
 // IntArrays attaches the methods of CheckArrays to struct IntArrays
@@ -83,7 +83,7 @@ func (iarray IntArrays) Size() int { return len(iarray.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (iarray IntArrays) GetError(i int) error {
-	return fmt.Errorf("\nExpected '%d' - Actual '%d'", iarray.Expected[i], iarray.Actual[i])
+	return fmt.Errorf("Expected '%d' - Actual '%d'", iarray.Expected[i], iarray.Actual[i])
 }
 
 //Float64Arrays attaches the methods of CheckArrays to struct Float64Arrays
@@ -103,7 +103,7 @@ func (f Float64Arrays) Size() int { return len(f.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (f Float64Arrays) GetError(i int) error {
-	return fmt.Errorf("\nExpected '%0.3f' - Actual '%0.3f'", f.Expected[i], f.Actual[i])
+	return fmt.Errorf("Expected '%0.3f' - Actual '%0.3f'", f.Expected[i], f.Actual[i])
 }
 
 //ByteArrays attaches the methods of CheckArrays to struct ByteArrays
@@ -123,7 +123,7 @@ func (b ByteArrays) Size() int { return len(b.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (b ByteArrays) GetError(i int) error {
-	return fmt.Errorf("\nExpected '%b' - Actual '%b'", b.Expected[i], b.Actual[i])
+	return fmt.Errorf("Expected '%b' - Actual '%b'", b.Expected[i], b.Actual[i])
 }
 
 //DataArrays attaches the methods of CheckArrays to struct DataArrays
@@ -143,5 +143,5 @@ func (d DataArrays) Size() int { return len(d.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (d DataArrays) GetError(i int) error {
-	return fmt.Errorf("\nExpected '%v' - Actual '%v'", d.Expected[i], d.Actual[i])
+	return fmt.Errorf("Expected '%v' - Actual '%v'", d.Expected[i], d.Actual[i])
 }

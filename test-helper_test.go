@@ -165,14 +165,6 @@ func TestHelperDataArray(t *testing.T) {
 }
 
 func TestHelperDifferentElementsDataArray(t *testing.T) {
-	actualValues, expectedValues := [][]interface{}{{-1, 33}, {1, 5, 7, "8"}}, [][]interface{}{{-1, "33"}, {1, 5, 3, 8}}
-
-	for i, expectedValue := range expectedValues {
-		if err := CheckArraySameValues(DataArrays{Expected: expectedValue, Actual: actualValues[i]}); err == nil {
-			t.Error("Expected Exception! Array with different values")
-			break
-		}
-	}
 
 	tests := []testData{
 		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
@@ -187,20 +179,22 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 }
 
 func TestHelperDifferentLengthArray(t *testing.T) {
-	arraysOne, arraysTwo := [][]interface{}{{-1, 3}, {"B", 5, 7, 8}}, [][]interface{}{{-1, 3, 4, 6}, {"B"}}
 
-	for i, aOne := range arraysOne {
+	tests := []testData{
+		testData{input1: []interface{}{-1, 3}, input2: []interface{}{1, 3, 4}},
+		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5"}},
+	}
 
-		err := CheckArraySameValues(DataArrays{Expected: arraysTwo[i], Actual: aOne})
+	for i, test := range tests {
+
+		err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2})
 		if err == nil {
-			t.Error("Expected Exception! Array with different lengths")
-			break
+			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
 		_, isLengthError := err.(*LengthError)
 
 		if !isLengthError {
-			t.Error("Expected a LengthError")
-			break
+			t.Errorf("%d - Expected a LengthError: %T", i+1, err)
 		}
 	}
 }
@@ -209,6 +203,6 @@ func TestHelperGetFuncName(t *testing.T) {
 	expectedValue := "CheckArraySameValues"
 	nameFunc := GetFuncName(CheckArraySameValues)
 	if nameFunc != expectedValue {
-		t.Errorf("\nExpected '%s' - Actual '%s'", expectedValue, nameFunc)
+		t.Errorf("Expected '%s' - Actual '%s'", expectedValue, nameFunc)
 	}
 }
