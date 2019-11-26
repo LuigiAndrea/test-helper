@@ -47,12 +47,20 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 	tests := []testStringData{
 		testStringData{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
 		testStringData{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
-		testStringData{input1: []string{""}, input2: []string{}},
+		testStringData{input1: []string{""}, input2: []string{" "}},
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+		err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2})
+
+		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+
+		_, isValueError := err.(*ValueError)
+
+		if !isValueError {
+			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
 		}
 	}
 }
@@ -80,8 +88,16 @@ func TestHelperDifferentElementsIntArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+		err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2})
+
+		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+
+		_, isValueError := err.(*ValueError)
+
+		if !isValueError {
+			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
 		}
 	}
 }
@@ -112,9 +128,18 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2}); err == nil {
+		err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2})
+
+		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
+
+		_, isValueError := err.(*ValueError)
+
+		if !isValueError {
+			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
+		}
+
 	}
 }
 
@@ -143,8 +168,16 @@ func TestHelperDifferentElementsByteArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+		err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2})
+
+		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+
+		_, isValueError := err.(*ValueError)
+
+		if !isValueError {
+			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
 		}
 	}
 }
@@ -172,8 +205,16 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2}); err == nil {
+		err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2})
+
+		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		}
+
+		_, isValueError := err.(*ValueError)
+
+		if !isValueError {
+			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
 		}
 	}
 }
