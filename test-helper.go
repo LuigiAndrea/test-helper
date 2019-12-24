@@ -14,8 +14,8 @@ func GetFuncName(f interface{}) string {
 	return link[len(link)-1]
 }
 
-//CheckArraySameValues Check if two arrays have the same values and in the same order
-func CheckArraySameValues(arrays CheckArrays) error {
+//AssertArraysEqual Check if two arrays have the same values and in the same order
+func AssertArraysEqual(arrays CheckArrays) error {
 	if !arrays.SameLength() {
 		return &LengthError{Err: errors.New("Array with different length")}
 	}

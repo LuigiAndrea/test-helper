@@ -37,7 +37,7 @@ func TestHelperStringArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertArraysEqual(StringArrays{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
@@ -51,7 +51,7 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := CheckArraySameValues(StringArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(StringArrays{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
@@ -75,7 +75,7 @@ func TestHelperIntArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertArraysEqual(IntArrays{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
@@ -88,7 +88,7 @@ func TestHelperDifferentElementsIntArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := CheckArraySameValues(IntArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(IntArrays{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
@@ -114,7 +114,7 @@ func TestHelperFloat64Array(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertArraysEqual(Float64Arrays{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
@@ -128,7 +128,7 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := CheckArraySameValues(Float64Arrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(Float64Arrays{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
@@ -155,7 +155,7 @@ func TestHelperByteArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertArraysEqual(ByteArrays{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
@@ -168,7 +168,7 @@ func TestHelperDifferentElementsByteArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := CheckArraySameValues(ByteArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(ByteArrays{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
@@ -191,7 +191,7 @@ func TestHelperDataArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
@@ -205,7 +205,7 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
@@ -228,7 +228,7 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 
 	for i, test := range tests {
 
-		err := CheckArraySameValues(DataArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2})
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
 		}
@@ -241,8 +241,8 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 }
 
 func TestHelperGetFuncName(t *testing.T) {
-	expectedValue := "CheckArraySameValues"
-	nameFunc := GetFuncName(CheckArraySameValues)
+	expectedValue := "AssertArraysEqual"
+	nameFunc := GetFuncName(AssertArraysEqual)
 	if nameFunc != expectedValue {
 		t.Errorf("Expected '%s' - Actual '%s'", expectedValue, nameFunc)
 	}
