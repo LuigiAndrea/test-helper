@@ -55,6 +55,8 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 
 		_, isValueError := err.(*ValueError)
@@ -92,6 +94,8 @@ func TestHelperDifferentElementsIntArray(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 
 		_, isValueError := err.(*ValueError)
@@ -132,6 +136,8 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 
 		_, isValueError := err.(*ValueError)
@@ -172,6 +178,8 @@ func TestHelperDifferentElementsByteArray(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 
 		_, isValueError := err.(*ValueError)
@@ -209,6 +217,8 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 
 		_, isValueError := err.(*ValueError)
@@ -231,6 +241,8 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 		err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2})
 		if err == nil {
 			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+		} else {
+			t.Log(err.Error())
 		}
 		_, isLengthError := err.(*LengthError)
 

@@ -17,7 +17,7 @@ func GetFuncName(f interface{}) string {
 //AssertArraysEqual Check if two arrays have the same values and in the same order
 func AssertArraysEqual(arrays CheckArrays) error {
 	if !arrays.SameLength() {
-		return &LengthError{Err: errors.New("Array with different length")}
+		return &LengthError{Err: errors.New("Arrays with different length")}
 	}
 
 	for i := 0; i < arrays.Size(); i++ {
