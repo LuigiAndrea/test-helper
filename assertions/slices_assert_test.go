@@ -1,4 +1,4 @@
-package gotesthelper
+package assertions
 
 import (
 	"math"
@@ -249,13 +249,5 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 		if !isLengthError {
 			t.Errorf("%d - Expected a LengthError: %T", i+1, err)
 		}
-	}
-}
-
-func TestHelperGetFuncName(t *testing.T) {
-	expectedValue := "AssertArraysEqual"
-	nameFunc := GetFuncName(AssertArraysEqual)
-	if nameFunc != expectedValue {
-		t.Errorf("Expected '%s' - Actual '%s'", expectedValue, nameFunc)
 	}
 }

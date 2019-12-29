@@ -1,18 +1,10 @@
-package gotesthelper
+package assertions
 
 import (
 	"errors"
-	"fmt"
-	"reflect"
-	"runtime"
-	"strings"
-)
 
-//GetFuncName return the name of the function passed as parameter
-func GetFuncName(f interface{}) string {
-	link := strings.Split(runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name(), ".")
-	return link[len(link)-1]
-}
+	m "github.com/LuigiAndrea/test-helper/messages"
+)
 
 //AssertArraysEqual Check if two arrays have the same values and in the same order
 func AssertArraysEqual(arrays CheckArrays) error {
@@ -52,7 +44,7 @@ type ValueError struct {
 }
 
 func (e *ValueError) Error() string {
-	return fmt.Sprintf("Expected '%v' - Actual '%v'", e.x, e.y)
+	return m.ErrorMessage(e.x, e.y)
 }
 
 // StringArrays attaches the methods of CheckArrays to struct StringArrays
