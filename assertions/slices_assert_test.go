@@ -33,7 +33,7 @@ func TestHelperStringArray(t *testing.T) {
 		testStringData{input1: []string{}, input2: []string{}},
 		testStringData{input1: []string{"d", "e", "a"}, input2: []string{"d", "e", "a"}},
 		testStringData{input1: []string{"T", "R", "E"}, input2: []string{"T", "R", "E"}},
-		testStringData{input1: []string{"CC", "AA", "BB"}, input2: []string{"CC", "AA", "BB"}},
+		testStringData{input1: []string{"CC", "AAA", "BB"}, input2: []string{"CC", "AAA", "BB"}},
 	}
 
 	for i, test := range tests {
@@ -210,6 +210,7 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 	tests := []testData{
 		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
 		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5", 3, true}},
+		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{"5", 3, true, 12}},
 	}
 
 	for i, test := range tests {

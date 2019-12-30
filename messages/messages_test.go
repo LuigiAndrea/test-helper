@@ -21,14 +21,16 @@ func TestHelperGetFuncName(t *testing.T) {
 func TestMessageError(t *testing.T) {
 	int1, int2 := 5, 12
 	string1, string2 := "casa", "home"
+	outputMessage := "Expected '%v' - Actual '%v'"
+
 	tests := []testMessageError{
-		testMessageError{input1: int1, input2: int2, output: fmt.Sprintf("Expected '%d' - Actual '%d'", int1, int2)},
-		testMessageError{input1: string1, input2: string2, output: fmt.Sprintf("Expected '%s' - Actual '%s'", string1, string2)},
+		testMessageError{input1: int1, input2: int2, output: fmt.Sprintf(outputMessage, int1, int2)},
+		testMessageError{input1: string1, input2: string2, output: fmt.Sprintf(outputMessage, string1, string2)},
 	}
 
 	for _, test := range tests {
 		if msg := ErrorMessage(test.input1, test.input2); msg != test.output {
-			t.Errorf(fmt.Sprintf("Expected '%v' - Actual '%v'", test.output, msg))
+			t.Errorf(fmt.Sprintf(outputMessage, test.output, msg))
 		}
 	}
 

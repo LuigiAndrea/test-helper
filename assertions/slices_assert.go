@@ -2,6 +2,7 @@ package assertions
 
 import (
 	"errors"
+	"fmt"
 
 	m "github.com/LuigiAndrea/test-helper/messages"
 )
@@ -41,10 +42,11 @@ func (e *LengthError) Error() string {
 //ValueError records an error when two elements have different values
 type ValueError struct {
 	x, y interface{}
+	pos  int
 }
 
 func (e *ValueError) Error() string {
-	return m.ErrorMessage(e.x, e.y)
+	return fmt.Sprintf("%s at position %d", m.ErrorMessage(e.x, e.y), e.pos)
 }
 
 // StringArrays attaches the methods of CheckArrays to struct StringArrays
@@ -64,7 +66,7 @@ func (s StringArrays) Size() int { return len(s.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (s StringArrays) GetError(i int) error {
-	return &ValueError{x: s.Expected[i], y: s.Actual[i]}
+	return &ValueError{x: s.Expected[i], y: s.Actual[i], pos: i}
 }
 
 // IntArrays attaches the methods of CheckArrays to struct IntArrays
@@ -84,7 +86,7 @@ func (iarray IntArrays) Size() int { return len(iarray.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (iarray IntArrays) GetError(i int) error {
-	return &ValueError{x: iarray.Expected[i], y: iarray.Actual[i]}
+	return &ValueError{x: iarray.Expected[i], y: iarray.Actual[i], pos: i}
 }
 
 //Float64Arrays attaches the methods of CheckArrays to struct Float64Arrays
@@ -104,7 +106,7 @@ func (f Float64Arrays) Size() int { return len(f.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (f Float64Arrays) GetError(i int) error {
-	return &ValueError{x: f.Expected[i], y: f.Actual[i]}
+	return &ValueError{x: f.Expected[i], y: f.Actual[i], pos: i}
 }
 
 //ByteArrays attaches the methods of CheckArrays to struct ByteArrays
@@ -124,7 +126,7 @@ func (b ByteArrays) Size() int { return len(b.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (b ByteArrays) GetError(i int) error {
-	return &ValueError{x: b.Expected[i], y: b.Actual[i]}
+	return &ValueError{x: b.Expected[i], y: b.Actual[i], pos: i}
 }
 
 //DataArrays attaches the methods of CheckArrays to struct DataArrays
@@ -144,5 +146,5 @@ func (d DataArrays) Size() int { return len(d.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (d DataArrays) GetError(i int) error {
-	return &ValueError{x: d.Expected[i], y: d.Actual[i]}
+	return &ValueError{x: d.Expected[i], y: d.Actual[i], pos: i}
 }
