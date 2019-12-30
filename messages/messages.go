@@ -15,5 +15,5 @@ func GetFuncName(f interface{}) string {
 
 //ErrorMessage Return a standard message when actual and expected values are different
 func ErrorMessage(ExpectedValue interface{}, ActualValue interface{}) string {
-	return fmt.Sprintf("Expected '%v' - Actual '%v'", ExpectedValue, ActualValue)
+	return fmt.Sprintf("Expected '%#v' - Actual '%#v'", ExpectedValue, ActualValue)
 }
