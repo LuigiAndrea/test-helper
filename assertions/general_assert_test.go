@@ -9,7 +9,9 @@ type testDeepEqual struct {
 }
 
 func TestAssertDeepEqual(t *testing.T) {
-	tests := []testDeepEqual{testDeepEqual{expected: []int{1, 2}, actual: []int{1, 2}},
+	tests := []testDeepEqual{
+		testDeepEqual{expected: []int{1, 2}, actual: []int{1, 2}},
+		testDeepEqual{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 3, 2}}},
 		testDeepEqual{expected: []string{"house", "apartment"}, actual: []string{"house", "apartment"}},
 		testDeepEqual{expected: 4.3, actual: 4.3},
 	}
@@ -24,6 +26,7 @@ func TestAssertDeepEqual(t *testing.T) {
 func TestAssertDeepEqualDifferentObjects(t *testing.T) {
 	tests := []testDeepEqual{
 		testDeepEqual{expected: []int{1}, actual: []int{1, 2}},
+		testDeepEqual{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 1, 2}}},
 		testDeepEqual{expected: []int{1, 2}, actual: []string{"1", "2"}},
 		testDeepEqual{expected: 4.3, actual: 4.31},
 	}

@@ -25,7 +25,7 @@ type testData struct {
 	input1, input2 []interface{}
 }
 
-func TestHelperStringArray(t *testing.T) {
+func TestHelperStringSlices(t *testing.T) {
 	tests := []testStringData{
 		testStringData{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
 		testStringData{input1: []string{"c"}, input2: []string{"c"}},
@@ -37,13 +37,13 @@ func TestHelperStringArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := AssertArraysEqual(StringArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperDifferentElementsStringArray(t *testing.T) {
+func TestHelperDifferentElementsStringSlices(t *testing.T) {
 	tests := []testStringData{
 		testStringData{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
 		testStringData{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
@@ -51,10 +51,10 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := AssertArraysEqual(StringArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
@@ -67,7 +67,7 @@ func TestHelperDifferentElementsStringArray(t *testing.T) {
 	}
 }
 
-func TestHelperIntArray(t *testing.T) {
+func TestHelperIntSlices(t *testing.T) {
 	tests := []testIntData{
 		testIntData{input1: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}, input2: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}},
 		testIntData{input1: []int{133}, input2: []int{133}},
@@ -77,23 +77,23 @@ func TestHelperIntArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := AssertArraysEqual(IntArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperDifferentElementsIntArray(t *testing.T) {
+func TestHelperDifferentElementsIntSlices(t *testing.T) {
 	tests := []testIntData{
 		testIntData{input1: []int{-1, 3}, input2: []int{-1, 33}},
 		testIntData{input1: []int{1, 5, 7, 8}, input2: []int{1, 5, 3, 8}},
 	}
 
 	for i, test := range tests {
-		err := AssertArraysEqual(IntArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
@@ -106,7 +106,7 @@ func TestHelperDifferentElementsIntArray(t *testing.T) {
 	}
 }
 
-func TestHelperFloat64Array(t *testing.T) {
+func TestHelperFloat64Slices(t *testing.T) {
 
 	tests := []testFloatData{
 		testFloatData{input1: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}, input2: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}},
@@ -118,13 +118,13 @@ func TestHelperFloat64Array(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := AssertArraysEqual(Float64Arrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperDifferentElementsFloatArray(t *testing.T) {
+func TestHelperDifferentElementsFloatSlices(t *testing.T) {
 
 	tests := []testFloatData{
 		testFloatData{input1: []float64{-1, 3}, input2: []float64{-1, 33}},
@@ -132,10 +132,10 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := AssertArraysEqual(Float64Arrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
@@ -149,7 +149,7 @@ func TestHelperDifferentElementsFloatArray(t *testing.T) {
 	}
 }
 
-func TestHelperByteArray(t *testing.T) {
+func TestHelperByteSlices(t *testing.T) {
 
 	tests := []testByteData{
 		testByteData{input1: []byte{1, 32, 44, math.MaxInt8, 1}, input2: []byte{1, 32, 44, math.MaxInt8, 1}},
@@ -161,23 +161,23 @@ func TestHelperByteArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := AssertArraysEqual(ByteArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperDifferentElementsByteArray(t *testing.T) {
+func TestHelperDifferentElementsByteSlices(t *testing.T) {
 	tests := []testByteData{
 		testByteData{input1: []byte{1, 3}, input2: []byte{1, 33}},
 		testByteData{input1: []byte{1, 5, 7, 8}, input2: []byte{1, 5, 3, 8}},
 	}
 
 	for i, test := range tests {
-		err := AssertArraysEqual(ByteArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
@@ -190,7 +190,7 @@ func TestHelperDifferentElementsByteArray(t *testing.T) {
 	}
 }
 
-func TestHelperDataArray(t *testing.T) {
+func TestHelperDataSlices(t *testing.T) {
 
 	tests := []testData{
 		testData{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
@@ -199,13 +199,13 @@ func TestHelperDataArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		if err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2}); err != nil {
+		if err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
 			t.Errorf("%d - %v", i+1, err.Error())
 		}
 	}
 }
 
-func TestHelperDifferentElementsDataArray(t *testing.T) {
+func TestHelperDifferentElementsDataSlices(t *testing.T) {
 
 	tests := []testData{
 		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
@@ -214,10 +214,10 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
@@ -230,7 +230,7 @@ func TestHelperDifferentElementsDataArray(t *testing.T) {
 	}
 }
 
-func TestHelperDifferentLengthArray(t *testing.T) {
+func TestHelperDifferentLengthSlices(t *testing.T) {
 
 	tests := []testData{
 		testData{input1: []interface{}{-1, 3}, input2: []interface{}{1, 3, 4}},
@@ -239,9 +239,9 @@ func TestHelperDifferentLengthArray(t *testing.T) {
 
 	for i, test := range tests {
 
-		err := AssertArraysEqual(DataArrays{Expected: test.input1, Actual: test.input2})
+		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
 		if err == nil {
-			t.Errorf("%d - Expected Exception! Array with different values", i+1)
+			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
 		} else {
 			t.Log(err.Error())
 		}
