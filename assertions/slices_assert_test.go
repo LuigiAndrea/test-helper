@@ -38,12 +38,13 @@ func TestHelperStringSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("%d - %v", i+1, err.Error())
+			t.Errorf("Test %d - %v", i+1, err.Error())
 		}
 	}
 }
 
 func TestHelperDifferentElementsStringSlices(t *testing.T) {
+	var ve *ValueError
 	tests := []testStringData{
 		testStringData{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
 		testStringData{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
@@ -52,17 +53,8 @@ func TestHelperDifferentElementsStringSlices(t *testing.T) {
 
 	for i, test := range tests {
 		err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2})
-
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
-		}
-
-		_, isValueError := err.(*ValueError)
-
-		if !isValueError {
-			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
 		}
 	}
 }
@@ -78,12 +70,13 @@ func TestHelperIntSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("%d - %v", i+1, err.Error())
+			t.Errorf("Test %d - %v", i+1, err.Error())
 		}
 	}
 }
 
 func TestHelperDifferentElementsIntSlices(t *testing.T) {
+	var ve *ValueError
 	tests := []testIntData{
 		testIntData{input1: []int{-1, 3}, input2: []int{-1, 33}},
 		testIntData{input1: []int{1, 5, 7, 8}, input2: []int{1, 5, 3, 8}},
@@ -91,17 +84,8 @@ func TestHelperDifferentElementsIntSlices(t *testing.T) {
 
 	for i, test := range tests {
 		err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2})
-
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
-		}
-
-		_, isValueError := err.(*ValueError)
-
-		if !isValueError {
-			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
 		}
 	}
 }
@@ -119,13 +103,13 @@ func TestHelperFloat64Slices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("%d - %v", i+1, err.Error())
+			t.Errorf("Test %d - %v", i+1, err.Error())
 		}
 	}
 }
 
 func TestHelperDifferentElementsFloatSlices(t *testing.T) {
-
+	var ve *ValueError
 	tests := []testFloatData{
 		testFloatData{input1: []float64{-1, 3}, input2: []float64{-1, 33}},
 		testFloatData{input1: []float64{1, 5, 7, 8}, input2: []float64{1, 5, 3, 8}},
@@ -133,19 +117,9 @@ func TestHelperDifferentElementsFloatSlices(t *testing.T) {
 
 	for i, test := range tests {
 		err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2})
-
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
 		}
-
-		_, isValueError := err.(*ValueError)
-
-		if !isValueError {
-			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
-		}
-
 	}
 }
 
@@ -162,12 +136,13 @@ func TestHelperByteSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("%d - %v", i+1, err.Error())
+			t.Errorf("Test %d - %v", i+1, err.Error())
 		}
 	}
 }
 
 func TestHelperDifferentElementsByteSlices(t *testing.T) {
+	var ve *ValueError
 	tests := []testByteData{
 		testByteData{input1: []byte{1, 3}, input2: []byte{1, 33}},
 		testByteData{input1: []byte{1, 5, 7, 8}, input2: []byte{1, 5, 3, 8}},
@@ -176,16 +151,8 @@ func TestHelperDifferentElementsByteSlices(t *testing.T) {
 	for i, test := range tests {
 		err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2})
 
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
-		}
-
-		_, isValueError := err.(*ValueError)
-
-		if !isValueError {
-			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
 		}
 	}
 }
@@ -200,13 +167,13 @@ func TestHelperDataSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("%d - %v", i+1, err.Error())
+			t.Errorf("Test %d - %v", i+1, err.Error())
 		}
 	}
 }
 
 func TestHelperDifferentElementsDataSlices(t *testing.T) {
-
+	var ve *ValueError
 	tests := []testData{
 		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
 		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5", 3, true}},
@@ -216,22 +183,16 @@ func TestHelperDifferentElementsDataSlices(t *testing.T) {
 	for i, test := range tests {
 		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
 
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
-		}
-
-		_, isValueError := err.(*ValueError)
-
-		if !isValueError {
-			t.Errorf("%d - Expected a ValueError: %T", i+1, err)
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
+		} else if len(err.Error()) == 0 {
+			t.Errorf("Test %d - Expected to receive an error message", i+1)
 		}
 	}
 }
 
 func TestHelperDifferentLengthSlices(t *testing.T) {
-
+	var le *LengthError
 	tests := []testData{
 		testData{input1: []interface{}{-1, 3}, input2: []interface{}{1, 3, 4}},
 		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5"}},
@@ -240,15 +201,10 @@ func TestHelperDifferentLengthSlices(t *testing.T) {
 	for i, test := range tests {
 
 		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
-		if err == nil {
-			t.Errorf("%d - Expected Exception! Slices with different values", i+1)
-		} else {
-			t.Log(err.Error())
-		}
-		_, isLengthError := err.(*LengthError)
-
-		if !isLengthError {
-			t.Errorf("%d - Expected a LengthError: %T", i+1, err)
+		if errExc := AssertException(le, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
+		} else if len(err.Error()) == 0 {
+			t.Errorf("Test %d - Expected to receive an error message", i+1)
 		}
 	}
 }

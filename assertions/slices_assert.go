@@ -41,12 +41,12 @@ func (e *LengthError) Error() string {
 
 //ValueError records an error when two elements have different values
 type ValueError struct {
-	x, y interface{}
-	pos  int
+	X, Y interface{}
+	Pos  int
 }
 
 func (e *ValueError) Error() string {
-	return fmt.Sprintf("%s at position %d", m.ErrorMessage(e.x, e.y), e.pos)
+	return fmt.Sprintf("%s at position %d", m.ErrorMessage(e.X, e.Y), e.Pos)
 }
 
 // StringSlicesMatch attaches the methods of CheckSlices to struct StringSlicesMatch
@@ -66,7 +66,7 @@ func (s StringSlicesMatch) Size() int { return len(s.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (s StringSlicesMatch) GetError(i int) error {
-	return &ValueError{x: s.Expected[i], y: s.Actual[i], pos: i}
+	return &ValueError{X: s.Expected[i], Y: s.Actual[i], Pos: i}
 }
 
 // IntSlicesMatch attaches the methods of CheckSlices to struct IntSlicesMatch
@@ -86,7 +86,7 @@ func (islice IntSlicesMatch) Size() int { return len(islice.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (islice IntSlicesMatch) GetError(i int) error {
-	return &ValueError{x: islice.Expected[i], y: islice.Actual[i], pos: i}
+	return &ValueError{X: islice.Expected[i], Y: islice.Actual[i], Pos: i}
 }
 
 //Float64SlicesMatch attaches the methods of CheckSlices to struct Float64SlicesMatch
@@ -106,7 +106,7 @@ func (f Float64SlicesMatch) Size() int { return len(f.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (f Float64SlicesMatch) GetError(i int) error {
-	return &ValueError{x: f.Expected[i], y: f.Actual[i], pos: i}
+	return &ValueError{X: f.Expected[i], Y: f.Actual[i], Pos: i}
 }
 
 //ByteSlicesMatch attaches the methods of CheckSlices to struct ByteSlicesMatch
@@ -126,7 +126,7 @@ func (b ByteSlicesMatch) Size() int { return len(b.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (b ByteSlicesMatch) GetError(i int) error {
-	return &ValueError{x: b.Expected[i], y: b.Actual[i], pos: i}
+	return &ValueError{X: b.Expected[i], Y: b.Actual[i], Pos: i}
 }
 
 //DataSlicesMatch attaches the methods of CheckSlices to struct DataSlicesMatch
@@ -146,5 +146,5 @@ func (d DataSlicesMatch) Size() int { return len(d.Expected) }
 
 // GetError displays an error message when the values at position i are different
 func (d DataSlicesMatch) GetError(i int) error {
-	return &ValueError{x: d.Expected[i], y: d.Actual[i], pos: i}
+	return &ValueError{X: d.Expected[i], Y: d.Actual[i], Pos: i}
 }
