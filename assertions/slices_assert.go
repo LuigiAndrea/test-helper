@@ -7,7 +7,7 @@ import (
 	m "github.com/LuigiAndrea/test-helper/messages"
 )
 
-//AssertSlicesEqual Check if two slices have the same values and in the same order
+//AssertSlicesEqual checks if two slices have the same values and in the same order
 func AssertSlicesEqual(slices CheckSlices) error {
 	if !slices.SameLength() {
 		return &LengthError{Err: errors.New("Slices with different length")}
