@@ -1,3 +1,4 @@
+// Package messages exports standard messages to use in formatting testing outputs
 package messages
 
 import (

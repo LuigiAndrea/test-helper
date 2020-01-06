@@ -1,3 +1,4 @@
+// Package assertions is used for comparing golang objects
 package assertions
 
 import (
