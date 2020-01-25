@@ -25,13 +25,13 @@ func ExampleAssertDeepEqual() {
 func ExampleAssertException() {
 	var t *testing.T
 
-	type testEqual struct {
-		expected, actual interface{}
+	type testException struct {
+		expected, actual error
 	}
 
-	tests := []testEqual{
-		testEqual{expected: &ValueError{}, actual: &ValueError{}},
-		testEqual{expected: &LengthError{}, actual: &LengthError{}},
+	tests := []testException{
+		testException{expected: &ValueError{}, actual: &ValueError{}},
+		testException{expected: &LengthError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {

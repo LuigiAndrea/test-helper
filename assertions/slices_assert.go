@@ -35,8 +35,18 @@ type LengthError struct {
 	Err error
 }
 
-func (e *LengthError) Error() string {
-	return e.Err.Error()
+func (le *LengthError) Error() string {
+	return le.Err.Error()
+}
+
+// Is Compare the values of LengthError
+func (le *LengthError) Is(e error) bool {
+	var err *LengthError
+	if errors.As(e, &err) {
+		return le.Err.Error() == err.Err.Error()
+	}
+
+	return false
 }
 
 //ValueError records an error when two elements have different values
@@ -45,8 +55,18 @@ type ValueError struct {
 	Pos  int
 }
 
-func (e *ValueError) Error() string {
-	return fmt.Sprintf("%s at position %d", m.ErrorMessage(e.X, e.Y), e.Pos)
+func (ve *ValueError) Error() string {
+	return fmt.Sprintf("%s at position %d", m.ErrorMessage(ve.X, ve.Y), ve.Pos)
+}
+
+// Is Compare the values of ValueError
+func (ve *ValueError) Is(e error) bool {
+	var err *ValueError
+	if errors.As(e, &err) {
+		return ve.Pos == err.Pos && ve.X == err.X && ve.Y == err.Y
+	}
+
+	return false
 }
 
 // StringSlicesMatch attaches the methods of CheckSlices to struct StringSlicesMatch

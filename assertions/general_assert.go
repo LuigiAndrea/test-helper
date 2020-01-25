@@ -19,17 +19,28 @@ func AssertDeepEqual(expected interface{}, actual interface{}) error {
 
 //ExceptionError records an error when two exceptions are of different type
 type ExceptionError struct {
-	ExpectedException, CurrentException interface{}
+	ExpectedException, CurrentException error
 }
 
 func (e *ExceptionError) Error() string {
 	return m.ErrorMessage(e.ExpectedException, e.CurrentException)
 }
 
-//AssertException checks if the exception fired is right
-func AssertException(expectedException interface{}, currentException interface{}) error {
+//AssertException checks if the exception fired has right type
+func AssertException(expectedException, currentException error) error {
 	if res := reflect.TypeOf(expectedException) != reflect.TypeOf(currentException); res {
 		return &ExceptionError{ExpectedException: expectedException, CurrentException: currentException}
 	}
+
+	return nil
+}
+
+//AssertDeepException checks if the exceptions have same values and types
+func AssertDeepException(expectedException, currentException error) error {
+
+	if !errors.Is(currentException, expectedException) {
+		return &ExceptionError{ExpectedException: expectedException, CurrentException: currentException}
+	}
+
 	return nil
 }

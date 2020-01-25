@@ -1,6 +1,7 @@
 package assertions
 
 import (
+	"errors"
 	"testing"
 
 	m "github.com/LuigiAndrea/test-helper/messages"
@@ -8,6 +9,10 @@ import (
 
 type testEqual struct {
 	expected, actual interface{}
+}
+
+type testException struct {
+	expected, actual error
 }
 
 func TestAssertDeepEqual(t *testing.T) {
@@ -41,22 +46,22 @@ func TestAssertDeepEqualDifferentObjects(t *testing.T) {
 }
 
 func TestAssertException(t *testing.T) {
-	tests := []testEqual{
-		testEqual{expected: &ValueError{}, actual: &ValueError{}},
-		testEqual{expected: &LengthError{}, actual: &LengthError{}},
+	tests := []testException{
+		testException{expected: &ValueError{}, actual: &ValueError{}},
+		testException{expected: &LengthError{Err: errors.New("Slices with different length")}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
 		if err := AssertException(test.expected, test.actual); err != nil {
-			t.Errorf("Test %d - %s", i+1, err.Error())
+			t.Errorf("Test %d - %#v", i+1, err)
 		}
 	}
 }
 
 func TestAssertDfferentException(t *testing.T) {
-	tests := []testEqual{
-		testEqual{expected: &ValueError{}, actual: nil},
-		testEqual{expected: &ValueError{}, actual: &LengthError{}},
+	tests := []testException{
+		testException{expected: &ValueError{}, actual: nil},
+		testException{expected: &ValueError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
