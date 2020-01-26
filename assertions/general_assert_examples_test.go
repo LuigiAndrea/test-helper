@@ -36,7 +36,26 @@ func ExampleAssertException() {
 
 	for i, test := range tests {
 		if err := AssertException(test.expected, test.actual); err != nil {
-			t.Errorf("Test %d - %s", i+1, err.Error())
+			t.Errorf("Test %d - %s", i+1, err)
+		}
+	}
+}
+
+func ExampleAssertDeepException() {
+	var t *testing.T
+
+	type testException struct {
+		expected, actual error
+	}
+
+	tests := []testException{
+		testException{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		testException{expected: &LengthError{}, actual: &LengthError{}},
+	}
+
+	for i, test := range tests {
+		if err := AssertDeepException(test.expected, test.actual); err != nil {
+			t.Errorf("Test %d - %v", i+1, err)
 		}
 	}
 }

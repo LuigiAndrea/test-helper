@@ -53,7 +53,7 @@ func TestAssertException(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertException(test.expected, test.actual); err != nil {
-			t.Errorf("Test %d - %#v", i+1, err)
+			t.Errorf("Test %d - %v", i+1, err)
 		}
 	}
 }
@@ -70,9 +70,50 @@ func TestAssertDfferentException(t *testing.T) {
 		} else if err.Error() != m.ErrorMessage(test.expected, test.actual) {
 			t.Errorf("Test %d - Expected a different error message!", i+1)
 		} else {
-			var ee *ExceptionError
-			if _, ok := err.(*ExceptionError); !ok {
-				t.Errorf("Test %d - %s", i+1, m.ErrorMessage(ee, err))
+			var e *ExceptionError
+			if !errors.As(err, &e) {
+				t.Errorf("Test %d - %s", i+1, m.ErrorMessage(e, err))
+			}
+		}
+	}
+}
+
+func TestAssertDeepException(t *testing.T) {
+	tests := []testException{
+		testException{expected: &ValueError{}, actual: &ValueError{}},
+		testException{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		testException{expected: &LengthError{Err: errors.New("Slices with different length")},
+			actual: &LengthError{Err: errors.New("Slices with different length")}},
+		testException{expected: nil, actual: nil},
+		testException{expected: &LengthError{}, actual: &LengthError{}},
+	}
+
+	for i, test := range tests {
+		if err := AssertDeepException(test.expected, test.actual); err != nil {
+			t.Errorf("Test %d - %v", i+1, err)
+		}
+	}
+}
+
+func TestAssertDifferentDeepException(t *testing.T) {
+	tests := []testException{
+		testException{expected: &ValueError{}, actual: &LengthError{}},
+		testException{expected: &ValueError{X: 1, Y: 0, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		testException{expected: &LengthError{Err: errors.New("Slices")}, actual: &LengthError{Err: errors.New("SlicesB")}},
+		testException{expected: nil, actual: &LengthError{}},
+		testException{expected: &LengthError{}, actual: nil},
+		testException{expected: &LengthError{}, actual: &ValueError{}},
+	}
+
+	for i, test := range tests {
+		if err := AssertDeepException(test.expected, test.actual); err == nil {
+			t.Errorf("Test %d - Expected Exception!", i+1)
+		} else if err.Error() != m.ErrorMessage(test.expected, test.actual) {
+			t.Errorf("Test %d - Expected a different error message!", i+1)
+		} else {
+			var e *ExceptionError
+			if !errors.As(err, &e) {
+				t.Errorf("Test %d - %s", i+1, m.ErrorMessage(e, err))
 			}
 		}
 	}
