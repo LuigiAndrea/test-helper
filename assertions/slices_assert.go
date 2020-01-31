@@ -153,6 +153,26 @@ func (b ByteSlicesMatch) GetError(i int) error {
 	return &ValueError{X: b.Expected[i], Y: b.Actual[i], Pos: i}
 }
 
+//BoolSlicesMatch attaches the methods of CheckSlices to struct BoolSlicesMatch
+type BoolSlicesMatch struct {
+	Expected []bool
+	Actual   []bool
+}
+
+// SameLength checks if the two slices have the same length
+func (b BoolSlicesMatch) SameLength() bool { return len(b.Expected) == len(b.Actual) }
+
+// AreEqual checks if the two slices have the same value at position i
+func (b BoolSlicesMatch) AreEqual(i int) bool { return b.Expected[i] == b.Actual[i] }
+
+// Size is the length of BoolSlicesMatch struct
+func (b BoolSlicesMatch) Size() int { return len(b.Expected) }
+
+// GetError displays an error message when the values at position i are different
+func (b BoolSlicesMatch) GetError(i int) error {
+	return &ValueError{X: b.Expected[i], Y: b.Actual[i], Pos: i}
+}
+
 //DataSlicesMatch attaches the methods of CheckSlices to struct DataSlicesMatch
 type DataSlicesMatch struct {
 	Expected []interface{}

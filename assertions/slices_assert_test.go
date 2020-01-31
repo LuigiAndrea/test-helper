@@ -21,6 +21,10 @@ type testByteData struct {
 	input1, input2 []byte
 }
 
+type testBoolData struct {
+	input1, input2 []bool
+}
+
 type testData struct {
 	input1, input2 []interface{}
 }
@@ -150,6 +154,38 @@ func TestHelperDifferentElementsByteSlices(t *testing.T) {
 
 	for i, test := range tests {
 		err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2})
+
+		if errExc := AssertException(ve, err); errExc != nil {
+			t.Errorf("Test %d - %v", i+1, errExc.Error())
+		}
+	}
+}
+
+func TestHelperBoolSlices(t *testing.T) {
+
+	tests := []testBoolData{
+		testBoolData{input1: []bool{true, false, true}, input2: []bool{true, false, true}},
+		testBoolData{input1: []bool{false}, input2: []bool{false}},
+		testBoolData{input1: []bool{}, input2: []bool{}},
+		testBoolData{input1: nil, input2: nil},
+	}
+
+	for i, test := range tests {
+		if err := AssertSlicesEqual(BoolSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Errorf("Test %d - %v", i+1, err.Error())
+		}
+	}
+}
+
+func TestHelperDifferentElementsBoolSlices(t *testing.T) {
+	var ve *ValueError
+	tests := []testBoolData{
+		testBoolData{input1: []bool{true, true}, input2: []bool{true, false}},
+		testBoolData{input1: []bool{false}, input2: []bool{true}},
+	}
+
+	for i, test := range tests {
+		err := AssertSlicesEqual(BoolSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if errExc := AssertException(ve, err); errExc != nil {
 			t.Errorf("Test %d - %v", i+1, errExc.Error())
