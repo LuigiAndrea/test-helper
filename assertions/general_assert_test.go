@@ -80,7 +80,7 @@ func TestAssertNotDeepEqualSameObjects(t *testing.T) {
 func TestAssertException(t *testing.T) {
 	tests := []testException{
 		testException{expected: &ValueError{}, actual: &ValueError{}},
-		testException{expected: &LengthError{Err: errors.New("Slices with different length")}, actual: &LengthError{}},
+		testException{expected: &LengthError{Err: "Slices with different length"}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
@@ -114,8 +114,8 @@ func TestAssertDeepException(t *testing.T) {
 	tests := []testException{
 		testException{expected: &ValueError{}, actual: &ValueError{}},
 		testException{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
-		testException{expected: &LengthError{Err: errors.New("Slices with different length")},
-			actual: &LengthError{Err: errors.New("Slices with different length")}},
+		testException{expected: &LengthError{Err: "Slices with different length"},
+			actual: &LengthError{Err: "Slices with different length"}},
 		testException{expected: nil, actual: nil},
 		testException{expected: &LengthError{}, actual: &LengthError{}},
 	}
@@ -131,7 +131,7 @@ func TestAssertDifferentDeepException(t *testing.T) {
 	tests := []testException{
 		testException{expected: &ValueError{}, actual: &LengthError{}},
 		testException{expected: &ValueError{X: 1, Y: 0, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
-		testException{expected: &LengthError{Err: errors.New("Slices")}, actual: &LengthError{Err: errors.New("SlicesB")}},
+		testException{expected: &LengthError{Err: "Slices"}, actual: &LengthError{Err: "SlicesB"}},
 		testException{expected: nil, actual: &LengthError{}},
 		testException{expected: &LengthError{}, actual: nil},
 		testException{expected: &LengthError{}, actual: &ValueError{}},

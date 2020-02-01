@@ -10,7 +10,7 @@ import (
 //AssertSlicesEqual checks if two slices have the same values and in the same order
 func AssertSlicesEqual(slices CheckSlices) error {
 	if !slices.SameLength() {
-		return &LengthError{Err: errors.New("Slices with different length")}
+		return &LengthError{Err: "Slices with different length"}
 	}
 
 	for i := 0; i < slices.Size(); i++ {
@@ -32,22 +32,22 @@ type CheckSlices interface {
 
 //LengthError records an error when two slices have different lengths
 type LengthError struct {
-	Err error
+	Err string
 }
 
 func (le *LengthError) Error() string {
-	return le.Err.Error()
+	return le.Err
 }
 
 // Is Compare the values of LengthError
 func (le *LengthError) Is(e error) bool {
 	var err *LengthError
 	if errors.As(e, &err) {
-		if err.Err == nil || le.Err == nil {
-			return err.Err == le.Err
+		if err == nil && le == nil {
+			return true
 		}
 
-		return le.Err.Error() == err.Err.Error()
+		return le.Err == err.Err
 	}
 
 	return false
