@@ -9,9 +9,18 @@ import (
 )
 
 //AssertDeepEqual checks if two objects are deep equal
-func AssertDeepEqual(expected interface{}, actual interface{}) error {
+func AssertDeepEqual(expected, actual interface{}) error {
 	if res := reflect.DeepEqual(expected, actual); !res {
 		return errors.New(m.ErrorMessage(expected, actual))
+	}
+
+	return nil
+}
+
+//AssertNotDeepEqual checks if two objects are not deep equal
+func AssertNotDeepEqual(notExpected, actual interface{}) error {
+	if res := reflect.DeepEqual(notExpected, actual); res {
+		return errors.New("Same objects")
 	}
 
 	return nil

@@ -11,6 +11,10 @@ type testEqual struct {
 	expected, actual interface{}
 }
 
+type testNotEqual struct {
+	notExpected, actual interface{}
+}
+
 type testException struct {
 	expected, actual error
 }
@@ -40,6 +44,34 @@ func TestAssertDeepEqualDifferentObjects(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertDeepEqual(test.expected, test.actual); err == nil {
+			t.Error(m.ErrorMessageTestCount(i+1, "Expected Exception!"))
+		}
+	}
+}
+
+func TestAssertNotDeepEqual(t *testing.T) {
+	tests := []testNotEqual{
+		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 2}},
+		testNotEqual{notExpected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 13, 2}}},
+		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
+		testNotEqual{notExpected: 4.3, actual: 5},
+	}
+
+	for i, test := range tests {
+		if err := AssertNotDeepEqual(test.notExpected, test.actual); err != nil {
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
+		}
+	}
+}
+
+func TestAssertNotDeepEqualSameObjects(t *testing.T) {
+	tests := []testNotEqual{
+		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 3}},
+		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"apartment"}},
+	}
+
+	for i, test := range tests {
+		if err := AssertNotDeepEqual(test.notExpected, test.actual); err == nil {
 			t.Error(m.ErrorMessageTestCount(i+1, "Expected Exception!"))
 		}
 	}

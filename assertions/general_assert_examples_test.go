@@ -1,6 +1,10 @@
 package assertions
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/LuigiAndrea/test-helper/messages"
+)
 
 func ExampleAssertDeepEqual() {
 	var t *testing.T
@@ -22,6 +26,26 @@ func ExampleAssertDeepEqual() {
 	}
 }
 
+func ExampleAssertNotDeepEqual() {
+	var t *testing.T
+
+	type testNotEqual struct {
+		notExpected, actual interface{}
+	}
+
+	tests := []testNotEqual{
+		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 2}},
+		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
+		testNotEqual{notExpected: 4.3, actual: 5},
+	}
+
+	for i, test := range tests {
+		if err := AssertNotDeepEqual(test.notExpected, test.actual); err != nil {
+			t.Error(messages.ErrorMessageTestCount(i+1, err.Error()))
+		}
+	}
+}
+
 func ExampleAssertException() {
 	var t *testing.T
 
@@ -36,7 +60,7 @@ func ExampleAssertException() {
 
 	for i, test := range tests {
 		if err := AssertException(test.expected, test.actual); err != nil {
-			t.Errorf("Test %d - %s", i+1, err)
+			t.Error(messages.ErrorMessageTestCount(i+1, err))
 		}
 	}
 }
@@ -55,7 +79,7 @@ func ExampleAssertDeepException() {
 
 	for i, test := range tests {
 		if err := AssertDeepException(test.expected, test.actual); err != nil {
-			t.Errorf("Test %d - %v", i+1, err)
+			t.Error(messages.ErrorMessageTestCount(i+1, err))
 		}
 	}
 }
