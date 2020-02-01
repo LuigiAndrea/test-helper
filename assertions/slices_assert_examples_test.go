@@ -3,6 +3,8 @@ package assertions
 import (
 	"math"
 	"testing"
+
+	"github.com/LuigiAndrea/test-helper/messages"
 )
 
 func ExampleAssertSlicesEqual_stringSlice() {
@@ -20,7 +22,7 @@ func ExampleAssertSlicesEqual_stringSlice() {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(messages.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -40,7 +42,7 @@ func ExampleAssertSlicesEqual_dataSlice() {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(messages.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }

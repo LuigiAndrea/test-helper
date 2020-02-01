@@ -3,6 +3,8 @@ package assertions
 import (
 	"math"
 	"testing"
+
+	m "github.com/LuigiAndrea/test-helper/messages"
 )
 
 type testStringData struct {
@@ -42,7 +44,7 @@ func TestHelperStringSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -58,7 +60,7 @@ func TestHelperDifferentElementsStringSlices(t *testing.T) {
 	for i, test := range tests {
 		err := AssertSlicesEqual(StringSlicesMatch{Expected: test.input1, Actual: test.input2})
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		}
 	}
 }
@@ -74,7 +76,7 @@ func TestHelperIntSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -89,7 +91,7 @@ func TestHelperDifferentElementsIntSlices(t *testing.T) {
 	for i, test := range tests {
 		err := AssertSlicesEqual(IntSlicesMatch{Expected: test.input1, Actual: test.input2})
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		}
 	}
 }
@@ -107,7 +109,7 @@ func TestHelperFloat64Slices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -122,7 +124,7 @@ func TestHelperDifferentElementsFloatSlices(t *testing.T) {
 	for i, test := range tests {
 		err := AssertSlicesEqual(Float64SlicesMatch{Expected: test.input1, Actual: test.input2})
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		}
 	}
 }
@@ -140,7 +142,7 @@ func TestHelperByteSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -156,7 +158,7 @@ func TestHelperDifferentElementsByteSlices(t *testing.T) {
 		err := AssertSlicesEqual(ByteSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		}
 	}
 }
@@ -172,7 +174,7 @@ func TestHelperBoolSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(BoolSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -188,7 +190,7 @@ func TestHelperDifferentElementsBoolSlices(t *testing.T) {
 		err := AssertSlicesEqual(BoolSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		}
 	}
 }
@@ -203,7 +205,7 @@ func TestHelperDataSlices(t *testing.T) {
 
 	for i, test := range tests {
 		if err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
-			t.Errorf("Test %d - %v", i+1, err.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
 		}
 	}
 }
@@ -220,9 +222,9 @@ func TestHelperDifferentElementsDataSlices(t *testing.T) {
 		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
 
 		if errExc := AssertException(ve, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		} else if len(err.Error()) == 0 {
-			t.Errorf("Test %d - Expected to receive an error message", i+1)
+			t.Error(m.ErrorMessageTestCount(i+1, "Expected to receive an error message"))
 		}
 	}
 }
@@ -238,9 +240,9 @@ func TestHelperDifferentLengthSlices(t *testing.T) {
 
 		err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2})
 		if errExc := AssertException(le, err); errExc != nil {
-			t.Errorf("Test %d - %v", i+1, errExc.Error())
+			t.Error(m.ErrorMessageTestCount(i+1, errExc.Error()))
 		} else if len(err.Error()) == 0 {
-			t.Errorf("Test %d - Expected to receive an error message", i+1)
+			t.Error(m.ErrorMessageTestCount(i+1, "Expected to receive an error message"))
 		}
 	}
 }
