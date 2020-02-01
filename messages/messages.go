@@ -19,7 +19,7 @@ func ErrorMessage(ExpectedValue, ActualValue interface{}) string {
 	return fmt.Sprintf("Expected: '%#v' - Actual: '%#v'", ExpectedValue, ActualValue)
 }
 
-//ErrorMessageTestCount returns a standard formatted message with test count when actual and expected values are different
+//ErrorMessageTestCount returns a standard formatted message with test count
 func ErrorMessageTestCount(n int, testError interface{}) string {
 	return fmt.Sprintf("\nTest %d: %v", n, testError)
 }
