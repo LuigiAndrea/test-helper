@@ -83,3 +83,11 @@ func ExampleAssertDeepException() {
 		}
 	}
 }
+
+func ExampleAssertPanic() {
+	var t *testing.T
+
+	if err := AssertPanic(myFunc); err != nil {
+		t.Error(err)
+	}
+}

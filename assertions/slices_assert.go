@@ -43,10 +43,6 @@ func (le *LengthError) Error() string {
 func (le *LengthError) Is(e error) bool {
 	var err *LengthError
 	if errors.As(e, &err) {
-		if err == nil && le == nil {
-			return true
-		}
-
 		return le.Err == err.Err
 	}
 

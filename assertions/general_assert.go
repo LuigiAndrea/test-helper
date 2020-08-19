@@ -3,6 +3,7 @@ package assertions
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 
 	m "github.com/LuigiAndrea/test-helper/messages"
@@ -50,6 +51,20 @@ func AssertDeepException(expectedException, currentException error) error {
 	if !errors.Is(currentException, expectedException) {
 		return &ExceptionError{ExpectedException: expectedException, CurrentException: currentException}
 	}
+
+	return nil
+}
+
+//AssertPanic checks if the function passed as parameter panic
+func AssertPanic(f func()) (e error) {
+	defer func() error {
+		if r := recover(); r == nil {
+			e = fmt.Errorf("Expected '%s' to panic", m.GetFuncName(f))
+		}
+		return nil
+	}()
+
+	f()
 
 	return nil
 }

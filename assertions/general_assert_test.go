@@ -150,3 +150,23 @@ func TestAssertDifferentDeepException(t *testing.T) {
 		}
 	}
 }
+
+func TestAssertPanic(t *testing.T) {
+	if err := AssertPanic(myFunc); err != nil {
+		t.Error(err)
+	}
+
+	if err := AssertPanic(func() {
+		myFuncParameter("myString")
+	}); err != nil {
+		t.Error(err)
+	}
+}
+
+func myFunc() {
+	panic("it is panicking")
+}
+
+func myFuncParameter(par string) {
+	panic(par)
+}
