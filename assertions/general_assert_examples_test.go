@@ -13,10 +13,10 @@ func ExampleAssertDeepEqual() {
 		expected, actual interface{}
 	}
 	tests := []testEqual{
-		testEqual{expected: []int{1, 2}, actual: []int{1, 2}},
-		testEqual{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 3, 2}}},
-		testEqual{expected: []string{"house", "apartment"}, actual: []string{"house", "apartment"}},
-		testEqual{expected: 4.3, actual: 4.3},
+		{expected: []int{1, 2}, actual: []int{1, 2}},
+		{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 3, 2}}},
+		{expected: []string{"house", "apartment"}, actual: []string{"house", "apartment"}},
+		{expected: 4.3, actual: 4.3},
 	}
 
 	for i, test := range tests {
@@ -34,9 +34,9 @@ func ExampleAssertNotDeepEqual() {
 	}
 
 	tests := []testNotEqual{
-		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 2}},
-		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
-		testNotEqual{notExpected: 4.3, actual: 5},
+		{notExpected: []int{1, 3}, actual: []int{1, 2}},
+		{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
+		{notExpected: 4.3, actual: 5},
 	}
 
 	for i, test := range tests {
@@ -54,8 +54,8 @@ func ExampleAssertException() {
 	}
 
 	tests := []testException{
-		testException{expected: &ValueError{}, actual: &ValueError{}},
-		testException{expected: &LengthError{}, actual: &LengthError{}},
+		{expected: &ValueError{}, actual: &ValueError{}},
+		{expected: &LengthError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
@@ -73,8 +73,8 @@ func ExampleAssertDeepException() {
 	}
 
 	tests := []testException{
-		testException{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
-		testException{expected: &LengthError{}, actual: &LengthError{}},
+		{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		{expected: &LengthError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {

@@ -21,10 +21,10 @@ type testException struct {
 
 func TestAssertDeepEqual(t *testing.T) {
 	tests := []testEqual{
-		testEqual{expected: []int{1, 2}, actual: []int{1, 2}},
-		testEqual{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 3, 2}}},
-		testEqual{expected: []string{"house", "apartment"}, actual: []string{"house", "apartment"}},
-		testEqual{expected: 4.3, actual: 4.3},
+		{expected: []int{1, 2}, actual: []int{1, 2}},
+		{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 3, 2}}},
+		{expected: []string{"house", "apartment"}, actual: []string{"house", "apartment"}},
+		{expected: 4.3, actual: 4.3},
 	}
 
 	for i, test := range tests {
@@ -36,10 +36,10 @@ func TestAssertDeepEqual(t *testing.T) {
 
 func TestAssertDeepEqualDifferentObjects(t *testing.T) {
 	tests := []testEqual{
-		testEqual{expected: []int{1}, actual: []int{1, 2}},
-		testEqual{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 1, 2}}},
-		testEqual{expected: []int{1, 2}, actual: []string{"1", "2"}},
-		testEqual{expected: 4.3, actual: 4.31},
+		{expected: []int{1}, actual: []int{1, 2}},
+		{expected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 1, 2}}},
+		{expected: []int{1, 2}, actual: []string{"1", "2"}},
+		{expected: 4.3, actual: 4.31},
 	}
 
 	for i, test := range tests {
@@ -51,10 +51,10 @@ func TestAssertDeepEqualDifferentObjects(t *testing.T) {
 
 func TestAssertNotDeepEqual(t *testing.T) {
 	tests := []testNotEqual{
-		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 2}},
-		testNotEqual{notExpected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 13, 2}}},
-		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
-		testNotEqual{notExpected: 4.3, actual: 5},
+		{notExpected: []int{1, 3}, actual: []int{1, 2}},
+		{notExpected: [][]int{{1, 2}, {3, 3, 2}}, actual: [][]int{{1, 2}, {3, 13, 2}}},
+		{notExpected: []string{"apartment"}, actual: []string{"house", "apartment"}},
+		{notExpected: 4.3, actual: 5},
 	}
 
 	for i, test := range tests {
@@ -66,8 +66,8 @@ func TestAssertNotDeepEqual(t *testing.T) {
 
 func TestAssertNotDeepEqualSameObjects(t *testing.T) {
 	tests := []testNotEqual{
-		testNotEqual{notExpected: []int{1, 3}, actual: []int{1, 3}},
-		testNotEqual{notExpected: []string{"apartment"}, actual: []string{"apartment"}},
+		{notExpected: []int{1, 3}, actual: []int{1, 3}},
+		{notExpected: []string{"apartment"}, actual: []string{"apartment"}},
 	}
 
 	for i, test := range tests {
@@ -79,8 +79,8 @@ func TestAssertNotDeepEqualSameObjects(t *testing.T) {
 
 func TestAssertException(t *testing.T) {
 	tests := []testException{
-		testException{expected: &ValueError{}, actual: &ValueError{}},
-		testException{expected: &LengthError{Err: "Slices with different length"}, actual: &LengthError{}},
+		{expected: &ValueError{}, actual: &ValueError{}},
+		{expected: &LengthError{Err: "Slices with different length"}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
@@ -92,8 +92,8 @@ func TestAssertException(t *testing.T) {
 
 func TestAssertDfferentException(t *testing.T) {
 	tests := []testException{
-		testException{expected: &ValueError{}, actual: nil},
-		testException{expected: &ValueError{}, actual: &LengthError{}},
+		{expected: &ValueError{}, actual: nil},
+		{expected: &ValueError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
@@ -112,12 +112,12 @@ func TestAssertDfferentException(t *testing.T) {
 
 func TestAssertDeepException(t *testing.T) {
 	tests := []testException{
-		testException{expected: &ValueError{}, actual: &ValueError{}},
-		testException{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
-		testException{expected: &LengthError{Err: "Slices with different length"},
+		{expected: &ValueError{}, actual: &ValueError{}},
+		{expected: &ValueError{X: 1, Y: 2, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		{expected: &LengthError{Err: "Slices with different length"},
 			actual: &LengthError{Err: "Slices with different length"}},
-		testException{expected: nil, actual: nil},
-		testException{expected: &LengthError{}, actual: &LengthError{}},
+		{expected: nil, actual: nil},
+		{expected: &LengthError{}, actual: &LengthError{}},
 	}
 
 	for i, test := range tests {
@@ -129,12 +129,12 @@ func TestAssertDeepException(t *testing.T) {
 
 func TestAssertDifferentDeepException(t *testing.T) {
 	tests := []testException{
-		testException{expected: &ValueError{}, actual: &LengthError{}},
-		testException{expected: &ValueError{X: 1, Y: 0, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
-		testException{expected: &LengthError{Err: "Slices"}, actual: &LengthError{Err: "SlicesB"}},
-		testException{expected: nil, actual: &LengthError{}},
-		testException{expected: &LengthError{}, actual: nil},
-		testException{expected: &LengthError{}, actual: &ValueError{}},
+		{expected: &ValueError{}, actual: &LengthError{}},
+		{expected: &ValueError{X: 1, Y: 0, Pos: 12}, actual: &ValueError{X: 1, Y: 2, Pos: 12}},
+		{expected: &LengthError{Err: "Slices"}, actual: &LengthError{Err: "SlicesB"}},
+		{expected: nil, actual: &LengthError{}},
+		{expected: &LengthError{}, actual: nil},
+		{expected: &LengthError{}, actual: &ValueError{}},
 	}
 
 	for i, test := range tests {
@@ -163,10 +163,20 @@ func TestAssertPanic(t *testing.T) {
 	}
 }
 
+func TestAssertWithoutPanic(t *testing.T) {
+	if err := AssertPanic(myFuncNoPanic); err == nil {
+		t.Error(err)
+	}
+}
+
 func myFunc() {
 	panic("it is panicking")
 }
 
 func myFuncParameter(par string) {
 	panic(par)
+}
+
+func myFuncNoPanic() {
+
 }

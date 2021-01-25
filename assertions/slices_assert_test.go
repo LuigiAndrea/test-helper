@@ -33,13 +33,13 @@ type testData struct {
 
 func TestHelperStringSlices(t *testing.T) {
 	tests := []testStringData{
-		testStringData{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
-		testStringData{input1: []string{"c"}, input2: []string{"c"}},
-		testStringData{input1: []string{""}, input2: []string{""}},
-		testStringData{input1: []string{}, input2: []string{}},
-		testStringData{input1: []string{"d", "e", "a"}, input2: []string{"d", "e", "a"}},
-		testStringData{input1: []string{"T", "R", "E"}, input2: []string{"T", "R", "E"}},
-		testStringData{input1: []string{"CC", "AAA", "BB"}, input2: []string{"CC", "AAA", "BB"}},
+		{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
+		{input1: []string{"c"}, input2: []string{"c"}},
+		{input1: []string{""}, input2: []string{""}},
+		{input1: []string{}, input2: []string{}},
+		{input1: []string{"d", "e", "a"}, input2: []string{"d", "e", "a"}},
+		{input1: []string{"T", "R", "E"}, input2: []string{"T", "R", "E"}},
+		{input1: []string{"CC", "AAA", "BB"}, input2: []string{"CC", "AAA", "BB"}},
 	}
 
 	for i, test := range tests {
@@ -52,9 +52,9 @@ func TestHelperStringSlices(t *testing.T) {
 func TestHelperDifferentElementsStringSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testStringData{
-		testStringData{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
-		testStringData{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
-		testStringData{input1: []string{""}, input2: []string{" "}},
+		{input1: []string{"-1", "1"}, input2: []string{"-1", "13"}},
+		{input1: []string{"1", "5", "7", "8"}, input2: []string{"1", "5", "3", "8"}},
+		{input1: []string{""}, input2: []string{" "}},
 	}
 
 	for i, test := range tests {
@@ -67,11 +67,11 @@ func TestHelperDifferentElementsStringSlices(t *testing.T) {
 
 func TestHelperIntSlices(t *testing.T) {
 	tests := []testIntData{
-		testIntData{input1: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}, input2: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}},
-		testIntData{input1: []int{133}, input2: []int{133}},
-		testIntData{input1: []int{0}, input2: []int{0}},
-		testIntData{input1: []int{}, input2: []int{}},
-		testIntData{input1: []int{-3, 43, -0}, input2: []int{-3, 43, -0}},
+		{input1: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}, input2: []int{1, 32, 44322, math.MaxInt64, math.MinInt64}},
+		{input1: []int{133}, input2: []int{133}},
+		{input1: []int{0}, input2: []int{0}},
+		{input1: []int{}, input2: []int{}},
+		{input1: []int{-3, 43, -0}, input2: []int{-3, 43, -0}},
 	}
 
 	for i, test := range tests {
@@ -84,8 +84,8 @@ func TestHelperIntSlices(t *testing.T) {
 func TestHelperDifferentElementsIntSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testIntData{
-		testIntData{input1: []int{-1, 3}, input2: []int{-1, 33}},
-		testIntData{input1: []int{1, 5, 7, 8}, input2: []int{1, 5, 3, 8}},
+		{input1: []int{-1, 3}, input2: []int{-1, 33}},
+		{input1: []int{1, 5, 7, 8}, input2: []int{1, 5, 3, 8}},
 	}
 
 	for i, test := range tests {
@@ -99,12 +99,12 @@ func TestHelperDifferentElementsIntSlices(t *testing.T) {
 func TestHelperFloat64Slices(t *testing.T) {
 
 	tests := []testFloatData{
-		testFloatData{input1: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}, input2: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}},
-		testFloatData{input1: []float64{133}, input2: []float64{133}},
-		testFloatData{input1: []float64{0.0}, input2: []float64{0.0}},
-		testFloatData{input1: []float64{}, input2: []float64{}},
-		testFloatData{input1: []float64{-3.0, 43.0, -0.0}, input2: []float64{-3.0, 43.0, -0.0}},
-		testFloatData{input1: []float64{2.5, 3.3}, input2: []float64{2.5, 3.3}},
+		{input1: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}, input2: []float64{1, 32.0, 44322.0, math.MaxFloat64, math.SmallestNonzeroFloat64, math.Inf(2)}},
+		{input1: []float64{133}, input2: []float64{133}},
+		{input1: []float64{0.0}, input2: []float64{0.0}},
+		{input1: []float64{}, input2: []float64{}},
+		{input1: []float64{-3.0, 43.0, -0.0}, input2: []float64{-3.0, 43.0, -0.0}},
+		{input1: []float64{2.5, 3.3}, input2: []float64{2.5, 3.3}},
 	}
 
 	for i, test := range tests {
@@ -117,8 +117,8 @@ func TestHelperFloat64Slices(t *testing.T) {
 func TestHelperDifferentElementsFloatSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testFloatData{
-		testFloatData{input1: []float64{-1, 3}, input2: []float64{-1, 33}},
-		testFloatData{input1: []float64{1, 5, 7, 8}, input2: []float64{1, 5, 3, 8}},
+		{input1: []float64{-1, 3}, input2: []float64{-1, 33}},
+		{input1: []float64{1, 5, 7, 8}, input2: []float64{1, 5, 3, 8}},
 	}
 
 	for i, test := range tests {
@@ -132,12 +132,12 @@ func TestHelperDifferentElementsFloatSlices(t *testing.T) {
 func TestHelperByteSlices(t *testing.T) {
 
 	tests := []testByteData{
-		testByteData{input1: []byte{1, 32, 44, math.MaxInt8, 1}, input2: []byte{1, 32, 44, math.MaxInt8, 1}},
-		testByteData{input1: []byte{0}, input2: []byte{0}},
-		testByteData{input1: []byte{}, input2: []byte{}},
-		testByteData{input1: []byte{120}, input2: []byte{120}},
-		testByteData{input1: []byte{3, 43, 0}, input2: []byte{3, 43, 0}},
-		testByteData{input1: []byte{2, 3}, input2: []byte{2, 3}},
+		{input1: []byte{1, 32, 44, math.MaxInt8, 1}, input2: []byte{1, 32, 44, math.MaxInt8, 1}},
+		{input1: []byte{0}, input2: []byte{0}},
+		{input1: []byte{}, input2: []byte{}},
+		{input1: []byte{120}, input2: []byte{120}},
+		{input1: []byte{3, 43, 0}, input2: []byte{3, 43, 0}},
+		{input1: []byte{2, 3}, input2: []byte{2, 3}},
 	}
 
 	for i, test := range tests {
@@ -150,8 +150,8 @@ func TestHelperByteSlices(t *testing.T) {
 func TestHelperDifferentElementsByteSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testByteData{
-		testByteData{input1: []byte{1, 3}, input2: []byte{1, 33}},
-		testByteData{input1: []byte{1, 5, 7, 8}, input2: []byte{1, 5, 3, 8}},
+		{input1: []byte{1, 3}, input2: []byte{1, 33}},
+		{input1: []byte{1, 5, 7, 8}, input2: []byte{1, 5, 3, 8}},
 	}
 
 	for i, test := range tests {
@@ -166,10 +166,10 @@ func TestHelperDifferentElementsByteSlices(t *testing.T) {
 func TestHelperBoolSlices(t *testing.T) {
 
 	tests := []testBoolData{
-		testBoolData{input1: []bool{true, false, true}, input2: []bool{true, false, true}},
-		testBoolData{input1: []bool{false}, input2: []bool{false}},
-		testBoolData{input1: []bool{}, input2: []bool{}},
-		testBoolData{input1: nil, input2: nil},
+		{input1: []bool{true, false, true}, input2: []bool{true, false, true}},
+		{input1: []bool{false}, input2: []bool{false}},
+		{input1: []bool{}, input2: []bool{}},
+		{input1: nil, input2: nil},
 	}
 
 	for i, test := range tests {
@@ -182,8 +182,8 @@ func TestHelperBoolSlices(t *testing.T) {
 func TestHelperDifferentElementsBoolSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testBoolData{
-		testBoolData{input1: []bool{true, true}, input2: []bool{true, false}},
-		testBoolData{input1: []bool{false}, input2: []bool{true}},
+		{input1: []bool{true, true}, input2: []bool{true, false}},
+		{input1: []bool{false}, input2: []bool{true}},
 	}
 
 	for i, test := range tests {
@@ -198,9 +198,9 @@ func TestHelperDifferentElementsBoolSlices(t *testing.T) {
 func TestHelperDataSlices(t *testing.T) {
 
 	tests := []testData{
-		testData{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
-		testData{input1: []interface{}{true, false, "cat", 3}, input2: []interface{}{true, false, "cat", 3}},
-		testData{input1: []interface{}{"AB", "c", "dog"}, input2: []interface{}{"AB", "c", "dog"}},
+		{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
+		{input1: []interface{}{true, false, "cat", 3}, input2: []interface{}{true, false, "cat", 3}},
+		{input1: []interface{}{"AB", "c", "dog"}, input2: []interface{}{"AB", "c", "dog"}},
 	}
 
 	for i, test := range tests {
@@ -213,9 +213,9 @@ func TestHelperDataSlices(t *testing.T) {
 func TestHelperDifferentElementsDataSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testData{
-		testData{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
-		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5", 3, true}},
-		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{"5", 3, true, 12}},
+		{input1: []interface{}{1, 3}, input2: []interface{}{1, 33}},
+		{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5", 3, true}},
+		{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{"5", 3, true, 12}},
 	}
 
 	for i, test := range tests {
@@ -232,8 +232,8 @@ func TestHelperDifferentElementsDataSlices(t *testing.T) {
 func TestHelperDifferentLengthSlices(t *testing.T) {
 	var le *LengthError
 	tests := []testData{
-		testData{input1: []interface{}{-1, 3}, input2: []interface{}{1, 3, 4}},
-		testData{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5"}},
+		{input1: []interface{}{-1, 3}, input2: []interface{}{1, 3, 4}},
+		{input1: []interface{}{1, "5", 7, false}, input2: []interface{}{1, "5"}},
 	}
 
 	for i, test := range tests {

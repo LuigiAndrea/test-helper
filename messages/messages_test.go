@@ -30,8 +30,8 @@ func TestErrorMessage(t *testing.T) {
 	outputMessage := "Expected: '%#v' - Actual: '%#v'"
 
 	tests := []testErrorMessage{
-		testErrorMessage{input1: int1, input2: int2, output: fmt.Sprintf(outputMessage, int1, int2)},
-		testErrorMessage{input1: string1, input2: string2, output: fmt.Sprintf(outputMessage, string1, string2)},
+		{input1: int1, input2: int2, output: fmt.Sprintf(outputMessage, int1, int2)},
+		{input1: string1, input2: string2, output: fmt.Sprintf(outputMessage, string1, string2)},
 	}
 
 	for i, test := range tests {
@@ -47,8 +47,8 @@ func TestErrorMessageCount(t *testing.T) {
 	outputMessage := "\nTest %d: %s"
 
 	tests := []testErrorMessageCount{
-		testErrorMessageCount{input1: testCount1, input2: testToPrint1, output: fmt.Sprintf(outputMessage, testCount1, testToPrint1)},
-		testErrorMessageCount{input1: testCount2, input2: testToPrint2, output: fmt.Sprintf(outputMessage, testCount2, testToPrint2)},
+		{input1: testCount1, input2: testToPrint1, output: fmt.Sprintf(outputMessage, testCount1, testToPrint1)},
+		{input1: testCount2, input2: testToPrint2, output: fmt.Sprintf(outputMessage, testCount2, testToPrint2)},
 	}
 
 	for _, test := range tests {

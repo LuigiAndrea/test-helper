@@ -15,9 +15,9 @@ func ExampleAssertSlicesEqual_stringSlice() {
 	}
 
 	tests := []testStringData{
-		testStringData{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
-		testStringData{input1: []string{"c"}, input2: []string{"c"}},
-		testStringData{input1: []string{""}, input2: []string{""}},
+		{input1: []string{"a", "b", "c", "d", "e"}, input2: []string{"a", "b", "c", "d", "e"}},
+		{input1: []string{"c"}, input2: []string{"c"}},
+		{input1: []string{""}, input2: []string{""}},
 	}
 
 	for i, test := range tests {
@@ -35,9 +35,9 @@ func ExampleAssertSlicesEqual_dataSlice() {
 	}
 
 	tests := []testData{
-		testData{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
-		testData{input1: []interface{}{true, false, "cat", 3}, input2: []interface{}{true, false, "cat", 3}},
-		testData{input1: []interface{}{"AB", "c", "dog"}, input2: []interface{}{"AB", "c", "dog"}},
+		{input1: []interface{}{1, 32, 44, math.MaxInt32, 1}, input2: []interface{}{1, 32, 44, math.MaxInt32, 1}},
+		{input1: []interface{}{true, false, "cat", 3}, input2: []interface{}{true, false, "cat", 3}},
+		{input1: []interface{}{"AB", "c", "dog"}, input2: []interface{}{"AB", "c", "dog"}},
 	}
 
 	for i, test := range tests {
