@@ -19,5 +19,6 @@ import (
 )
 ```
 
+Check GoPearls project to see test-helper package running in real scenario [GoPearls](https://github.com/LuigiAndrea/GoPearls)
 
 See documentation for more details and examples
