@@ -5,6 +5,8 @@
 
 # Go Test Helper
 
+#### Helper for golang tests, no dependencies and easy to use. Great for testing algorithmic problems
+
 ## Install and Usage
 
 ### Install the package with
@@ -19,6 +21,6 @@ import (
 )
 ```
 
-Check GoPearls project to see test-helper package running in real scenario [GoPearls](https://github.com/LuigiAndrea/GoPearls)
+Check [GoPearls](https://github.com/LuigiAndrea/GoPearls) project to see test-helper package running in real scenario 
 
 See documentation for more details and examples
