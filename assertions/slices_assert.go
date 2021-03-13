@@ -3,6 +3,7 @@ package assertions
 import (
 	"errors"
 	"fmt"
+	"reflect"
 
 	m "github.com/LuigiAndrea/test-helper/messages"
 )
@@ -179,7 +180,7 @@ type DataSlicesMatch struct {
 func (d DataSlicesMatch) SameLength() bool { return len(d.Expected) == len(d.Actual) }
 
 // AreEqual checks if the two slices have the same value at position i
-func (d DataSlicesMatch) AreEqual(i int) bool { return d.Expected[i] == d.Actual[i] }
+func (d DataSlicesMatch) AreEqual(i int) bool { return reflect.DeepEqual(d.Expected[i], d.Actual[i]) }
 
 // Size is the length of DataSlicesMatch struct
 func (d DataSlicesMatch) Size() int { return len(d.Expected) }

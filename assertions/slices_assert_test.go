@@ -210,6 +210,24 @@ func TestHelperDataSlices(t *testing.T) {
 	}
 }
 
+func TestHelperDataStructSlices(t *testing.T) {
+	type objectToTest struct {
+		value1 int
+		value2 string
+	}
+
+	tests := []testData{
+		{input1: []interface{}{&objectToTest{}}, input2: []interface{}{&objectToTest{}}},
+		{input1: []interface{}{&objectToTest{value1: 51, value2: "casa"}}, input2: []interface{}{&objectToTest{value1: 51, value2: "casa"}}},
+		{input1: []interface{}{&objectToTest{value1: -10, value2: "hotel"}}, input2: []interface{}{&objectToTest{value1: -10, value2: "hotel"}}}}
+
+	for i, test := range tests {
+		if err := AssertSlicesEqual(DataSlicesMatch{Expected: test.input1, Actual: test.input2}); err != nil {
+			t.Error(m.ErrorMessageTestCount(i+1, err.Error()))
+		}
+	}
+}
+
 func TestHelperDifferentElementsDataSlices(t *testing.T) {
 	var ve *ValueError
 	tests := []testData{
